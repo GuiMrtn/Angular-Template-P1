@@ -1,0 +1,104 @@
+<h1>Liste de pokemon</h1>
+
+<!-- Ici, on va afficher le nom du premier prokemon grâce à l'interpolation et on va répéter cela pour les 12 pokemons. On met .name pour n'avoir que le nom des pokemons. Cette interpolation est gérée automatiquement par Angular de la classe vers le template -->
+<!-- 
+<p>{{ pokemonList[0].name }}</p>
+<p>{{ pokemonList[1].name }}</p>
+<p>{{ pokemonList[2].name }}</p>
+<p>{{ pokemonList[3].name }}</p>
+<p>{{ pokemonList[4].name }}</p>
+<p>{{ pokemonList[5].name }}</p>
+<p>{{ pokemonList[6].name }}</p>
+<p>{{ pokemonList[7].name }}</p>
+<p>{{ pokemonList[8].name }}</p>
+<p>{{ pokemonList[9].name }}</p>
+<p>{{ pokemonList[10].name }}</p>
+<p>{{ pokemonList[11].name }}</p>
+-->
+
+<!-- Le processus ci-dessus est très pratique, mais il en existe des plus efficaces. En réalité ce processus ne fonctionne que de la classe vers le template et si jamais un utilisateur veut interagir, il nous faut absolument que cette interpolation aille du template vers la classe (par exemple si un utilisateur fait un click, cliquer sur un lien, entrer du texte etc...)--> 
+
+<!--Ici, on va mettre un évènement (clic) que le premier pokémon et on va exécuter la méthode selectedPokemon (du dossier app.component.ts). On va passer en paramètre de la méthode le premier pokemon (sans le .name déjà défini dans la méthode) et quand on clique sur Bulbizarre, le message sera affiché dans la console -->
+
+<!-- 
+<p (click)="selectedPokemon(pokemonList[0])">{{ pokemonList[0].name }}</p>
+<p>{{ pokemonList[1].name }}</p>
+<p>{{ pokemonList[2].name }}</p>
+<p>{{ pokemonList[3].name }}</p>
+<p>{{ pokemonList[4].name }}</p>
+<p>{{ pokemonList[5].name }}</p>
+<p>{{ pokemonList[6].name }}</p>
+<p>{{ pokemonList[7].name }}</p>
+<p>{{ pokemonList[8].name }}</p>
+<p>{{ pokemonList[9].name }}</p>
+<p>{{ pokemonList[10].name }}</p>
+<p>{{ pokemonList[11].name }}</p>
+-->
+
+<!--Ici on va créer un input qui permettra à l'utilisateur que quand il cliquera, on aura le pokemon sur lequel il aura cliqué. Comme on ne sait pas ce qui sera cliqué, on va remonter l'évènement qui aura été cliqué grace au $event. On va avoir une erreur car on va avoir en paramètre de selectedPokemon un évènement du DOM alors que notre méthode accepte un pokemon de type Pokemon-->
+<!-- 
+<input type="number" (click)="selectedPokemon($event)">
+<p>{{ pokemonList[0].name }}</p>
+<p>{{ pokemonList[1].name }}</p>
+<p>{{ pokemonList[2].name }}</p>
+<p>{{ pokemonList[3].name }}</p>
+<p>{{ pokemonList[4].name }}</p>
+<p>{{ pokemonList[5].name }}</p>
+<p>{{ pokemonList[6].name }}</p>
+<p>{{ pokemonList[7].name }}</p>
+<p>{{ pokemonList[8].name }}</p>
+<p>{{ pokemonList[9].name }}</p>
+<p>{{ pokemonList[10].name }}</p>
+<p>{{ pokemonList[11].name }}</p>
+-->
+
+<!-- Ici, on va référencer une variable dans le template avec #, ici #input. Ce qui est pratique, c'est qu'on va pouvoir accéder directement à l'élément, en se passant du +(event.target as HTMLInputElement).value de app.component.ts. On va y ajouter un évènement (keyup), qui permet d'afficher en temps réél ce que tape l'utilisateur, évènement qu'on initialise à 0-->
+
+<!-- 
+<input 
+    #input
+    (keyup)="0"
+    type="text"
+>
+-->
+<!--Ici, on va afficher l'interpolation dans un nouveau paragraphe qui va directement afficher le contenu de ce qu'a tapé l'utilisateur -->
+<!-- 
+<p> {{ input.value }}</p>
+
+<p>{{ pokemonList[0].name }}</p>
+<p>{{ pokemonList[1].name }}</p>
+<p>{{ pokemonList[2].name }}</p>
+<p>{{ pokemonList[3].name }}</p>
+<p>{{ pokemonList[4].name }}</p>
+<p>{{ pokemonList[5].name }}</p>
+<p>{{ pokemonList[6].name }}</p>
+<p>{{ pokemonList[7].name }}</p>
+<p>{{ pokemonList[8].name }}</p>
+<p>{{ pokemonList[9].name }}</p>
+<p>{{ pokemonList[10].name }}</p>
+<p>{{ pokemonList[11].name }}</p>
+
+-->
+
+<!--Ici on va demander à un utilisateur de taper un chiffre et de lui retourner le pokemon correspondant et afficher le pokemon concerné. L'idée va être de créer un flux de données bidirectionnel. Ici on garde l'input et l'évènement keyup qui nous permettra d'intercepter l'évènement. Ici, on appelle selectPokemon() et on met en paramètre la variable référencée dans le template, ici input. Ici, on récupère directement une chaîne de caractère avec value et l'index de ce qu'a saisi l'utilisateur -->
+<input 
+    #input
+    (keyup)="selectedPokemon(input.value)"
+    type="number"
+>
+
+<!-- Ici on affiche le pokémon séléctionné avec la propriété name. Le ? permet de dire à Angular de ne rien afficher que de lever une erreur quand la propriété vaut undefined-->
+<p> {{ pokemonSelected?.name }}</p>
+
+<p>{{ pokemonList[0].name }}</p>
+<p>{{ pokemonList[1].name }}</p>
+<p>{{ pokemonList[2].name }}</p>
+<p>{{ pokemonList[3].name }}</p>
+<p>{{ pokemonList[4].name }}</p>
+<p>{{ pokemonList[5].name }}</p>
+<p>{{ pokemonList[6].name }}</p>
+<p>{{ pokemonList[7].name }}</p>
+<p>{{ pokemonList[8].name }}</p>
+<p>{{ pokemonList[9].name }}</p>
+<p>{{ pokemonList[10].name }}</p>
+<p>{{ pokemonList[11].name }}</p>
